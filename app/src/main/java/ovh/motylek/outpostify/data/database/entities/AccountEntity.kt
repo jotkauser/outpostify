@@ -9,7 +9,8 @@ data class AccountEntity(
     val accessToken: String,
     val refreshToken: String,
     val tokenExpiration: LocalDateTime,
-    val phoneNumber: String
+    val phoneNumber: String,
+    val selected: Boolean = false
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0

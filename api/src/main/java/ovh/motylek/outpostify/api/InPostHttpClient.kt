@@ -31,7 +31,7 @@ internal class InPostHttpClient {
             }
         }
         install(UserAgent) {
-            agent = "InPost-Mobile/3.41.1(34101000) (Android $androidVersion; $deviceModel; $deviceManufacturer $deviceCodename; en)"
+            agent = "InPost-Mobile/3.41.1(34101000) (Android $androidVersion; $deviceModel; Xiaomi $deviceCodename; en)"
         }
     }
 

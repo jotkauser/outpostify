@@ -11,4 +11,10 @@ class AccountRepository(
     suspend fun getAllAccounts(): List<AccountEntity> = accountDao.getAll()
 
     suspend fun getFirstAccount(): AccountEntity = accountDao.getFirst()
+
+    suspend fun getCurrentAccount(): AccountEntity = accountDao.getSelected()
+
+    suspend fun updateAccount(accountEntity: AccountEntity) = accountDao.update(accountEntity)
+
+    suspend fun getAccountById(id: Long): AccountEntity = accountDao.getById(id)
 }

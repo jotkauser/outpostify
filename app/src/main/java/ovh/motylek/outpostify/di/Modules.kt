@@ -9,6 +9,7 @@ import org.koin.ksp.generated.module
 import ovh.motylek.outpostify.data.database.OutPostifyDatabase
 import ovh.motylek.outpostify.data.database.createDatabase
 import ovh.motylek.outpostify.data.repository.AccountRepository
+import ovh.motylek.outpostify.service.ClientManager
 
 
 @Module
@@ -29,9 +30,14 @@ val repositoryModule = module {
     singleOf(::AccountRepository)
 }
 
+val appCoreModule = module {
+    singleOf(::ClientManager)
+}
+
 val appModules = arrayOf(
     ViewModelsModule().module,
     databaseModule,
     daoModule,
-    repositoryModule
+    repositoryModule,
+    appCoreModule
 )

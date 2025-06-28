@@ -12,6 +12,12 @@ interface AccountDao : BaseDao<AccountEntity> {
     @Query("SELECT * FROM accounts LIMIT 1")
     suspend fun getFirst(): AccountEntity
 
+    @Query("SELECT * FROM accounts WHERE selected = 1")
+    suspend fun getSelected(): AccountEntity
+
+    @Query("SELECT * FROM accounts WHERE id = :id")
+    suspend fun getById(id: Long): AccountEntity
+
     @Insert
     suspend fun insertAndGetId(accountEntity: AccountEntity): Long
 }

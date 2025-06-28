@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "243a923f9af83eef767f5a810ac11570",
+    "identityHash": "9ce4644a63baa1ffe1b63461cc88e286",
     "entities": [
       {
         "tableName": "accounts",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accessToken` TEXT NOT NULL, `refreshToken` TEXT NOT NULL, `tokenExpiration` TEXT NOT NULL, `phoneNumber` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accessToken` TEXT NOT NULL, `refreshToken` TEXT NOT NULL, `tokenExpiration` TEXT NOT NULL, `phoneNumber` TEXT NOT NULL, `selected` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
         "fields": [
           {
             "fieldPath": "accessToken",
@@ -33,6 +33,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "selected",
+            "columnName": "selected",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
@@ -49,7 +55,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '243a923f9af83eef767f5a810ac11570')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9ce4644a63baa1ffe1b63461cc88e286')"
     ]
   }
 }
