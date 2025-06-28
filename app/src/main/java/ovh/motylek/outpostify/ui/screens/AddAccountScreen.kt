@@ -1,5 +1,6 @@
 package ovh.motylek.outpostify.ui.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,11 +29,16 @@ import ovh.motylek.outpostify.R
 import ovh.motylek.outpostify.ui.common.components.LoadingButton
 import ovh.motylek.outpostify.ui.viewmodels.AddAccountViewModel
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.navigation.NavController
+import kotlinx.coroutines.launch
 import ovh.motylek.outpostify.ui.common.components.ErrorDialog
+import ovh.motylek.outpostify.ui.routes.Parcels
 
 @Composable
 fun AddAccountScreen(
+    navController: NavController,
     viewModel: AddAccountViewModel = koinViewModel()
 ) {
     val phoneNumber by viewModel.phoneNumber.collectAsStateWithLifecycle()
@@ -40,6 +46,7 @@ fun AddAccountScreen(
     val showSmsField by viewModel.showSmsField.collectAsStateWithLifecycle()
     val smsCode by viewModel.smsCode.collectAsStateWithLifecycle()
     val exception by viewModel.exception.collectAsStateWithLifecycle()
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp)
@@ -60,9 +67,20 @@ fun AddAccountScreen(
                 isLoading = buttonLoading,
                 enabled = smsCode.length == 6,
                 onClick = {
-                    viewModel.acceptSmsCode()
+                    coroutineScope.launch {
+                        val status = viewModel.acceptSmsCode()
+                        if (status.first) {
+                            navController.navigate(Parcels(status.second)) {
+                                launchSingleTop = true
+                            }
+                        }
+                    }
                 },
             ) { Text(text = stringResource(R.string.Generic_Next)) }
+
+            BackHandler {
+                viewModel.goBack()
+            }
         } else {
             Row(
                 verticalAlignment = Alignment.CenterVertically,

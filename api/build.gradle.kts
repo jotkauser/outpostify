@@ -42,4 +42,6 @@ dependencies {
     implementation(libs.ktor.serialization)
     implementation(libs.ktor.content.negotiation)
     implementation(libs.ktor.engine.okhttp)
+
+    implementation(libs.kotlin.datetime)
 }

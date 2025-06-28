@@ -12,4 +12,7 @@
 
     <string name="AddAccount_PhoneNumber">Phone number</string>
     <string name="AddAccount_SmsCode">SMS code</string>
+
+    <string name="Navigation_Parcels">Parcels</string>
+    <string name="Navigation_Settings">Settings</string>
 </resources>

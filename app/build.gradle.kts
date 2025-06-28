@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.ksp)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.androidx.room)
 }
 
 android {
@@ -38,6 +39,10 @@ android {
     }
 }
 
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -51,6 +56,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.accompanist.drawablepainter)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
 
     implementation(libs.compose.navigation)
     implementation(libs.koin)
@@ -61,6 +68,8 @@ dependencies {
 
     implementation(libs.kotlin.serialization)
     implementation(libs.kotlin.coroutines)
+    implementation(libs.kotlin.datetime)
+    implementation(libs.material.icons.extended)
 
     implementation(projects.api)
 }

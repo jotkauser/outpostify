@@ -7,3 +7,6 @@ object Welcome
 
 @Serializable
 object AddAccount
+
+@Serializable
+data class Parcels(val userId: Long)
