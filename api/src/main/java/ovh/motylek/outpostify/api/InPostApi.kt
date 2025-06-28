@@ -25,4 +25,16 @@ internal class InPostApi(
         return tokens.accessToken
 
     }
+
+    suspend fun getTrackedParcels() {
+
+    }
+
+    suspend fun getSentParcels() {
+
+    }
+
+    suspend fun getReturnedParcels() {
+
+    }
 }

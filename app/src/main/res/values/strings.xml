@@ -16,4 +16,11 @@
 
     <string name="Navigation_Parcels">Parcels</string>
     <string name="Navigation_Settings">Settings</string>
+
+    <string name="Parcels_Received">Received</string>
+    <string name="Parcels_Sent">Sent</string>
+    <string name="Parcels_Returned">Returned</string>
+    <string name="Parcels_NoReceived">No received parcels</string>
+    <string name="Parcels_NoSent">No sent parcels</string>
+    <string name="Parcels_NoReturned">No returned parcels</string>
 </resources>
