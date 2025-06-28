@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name" translatable="false">OutPostify</string>
+
+    <string name="Title_AddAccount">Add account</string>
+
+    <string name="Generic_Next">Next</string>
+
+    <string name="Welcome_Title">Welcome to</string>
+    <string name="Welcome_Button">Add account</string>
+
+    <string name="AddAccount_PhoneNumber">Phone number</string>
+</resources>
