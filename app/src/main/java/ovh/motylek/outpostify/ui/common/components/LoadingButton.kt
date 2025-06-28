@@ -10,13 +10,14 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun LoadingButton(
     isLoading: Boolean,
+    enabled: Boolean = true,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
     OutlinedButton(
         onClick = onClick,
-        enabled = !isLoading,
+        enabled = !isLoading && enabled,
         modifier = modifier
             .fillMaxWidth()
     ) {

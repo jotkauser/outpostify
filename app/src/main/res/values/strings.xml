@@ -4,9 +4,12 @@
     <string name="Title_AddAccount">Add account</string>
 
     <string name="Generic_Next">Next</string>
+    <string name="Generic_Error">Error</string>
+    <string name="Generic_Ok">OK</string>
 
     <string name="Welcome_Title">Welcome to</string>
     <string name="Welcome_Button">Add account</string>
 
     <string name="AddAccount_PhoneNumber">Phone number</string>
+    <string name="AddAccount_SmsCode">SMS code</string>
 </resources>

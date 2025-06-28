@@ -61,4 +61,6 @@ dependencies {
 
     implementation(libs.kotlin.serialization)
     implementation(libs.kotlin.coroutines)
+
+    implementation(projects.api)
 }
