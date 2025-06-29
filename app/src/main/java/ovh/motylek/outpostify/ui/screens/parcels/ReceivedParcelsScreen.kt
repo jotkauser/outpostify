@@ -39,7 +39,9 @@ fun ReceivedParcelsScreen(
             modifier = Modifier.fillMaxSize().padding(top = 16.dp, bottom = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            parcels.forEach {
+            parcels
+                .sortedByDescending { it.events.last().date }
+                .forEach {
                 item {
                     Card(
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
