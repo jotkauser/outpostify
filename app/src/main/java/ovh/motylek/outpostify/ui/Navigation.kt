@@ -1,6 +1,5 @@
 package ovh.motylek.outpostify.ui
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -33,14 +32,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import ovh.motylek.outpostify.R
@@ -49,8 +46,8 @@ import ovh.motylek.outpostify.ui.routes.AddAccount
 import ovh.motylek.outpostify.ui.routes.Parcels
 import ovh.motylek.outpostify.ui.routes.Welcome
 import ovh.motylek.outpostify.ui.screens.AddAccountScreen
-import ovh.motylek.outpostify.ui.screens.ParcelsScreen
 import ovh.motylek.outpostify.ui.screens.WelcomeScreen
+import ovh.motylek.outpostify.ui.screens.parcels.ParcelsScreen
 import ovh.motylek.outpostify.ui.viewmodels.NavigationViewModel
 import kotlin.reflect.KClass
 
@@ -67,7 +64,7 @@ private val navigationItems = listOf(
         iconSelected = Icons.Default.LocalShipping,
         icon = Icons.Outlined.LocalShipping,
         route = Parcels::class
-    )
+    ),
 )
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -18,4 +18,11 @@ class ClientManager(
         }
         syncClients[userId] = client
     }
+
+    suspend fun ClientTask(
+        userId: Long,
+        callback: suspend (InPostSyncClient) -> Unit
+    ) {
+        callback(syncClients[userId]!!)
+    }
 }

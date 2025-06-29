@@ -5,4 +5,5 @@ object InPostApiEndpoints {
     const val REQUEST_SMS = "v1/account"
     const val GET_TOKENS = "v1/account/verification"
     const val REFRESH_TOKEN = "v1/authenticate"
+    const val TRACKED_PARCELS = "v4/parcels/tracked"
 }

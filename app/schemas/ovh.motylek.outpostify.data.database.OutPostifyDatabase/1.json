@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9ce4644a63baa1ffe1b63461cc88e286",
+    "identityHash": "11b3d627cdea7d075e597fdfe837e571",
     "entities": [
       {
         "tableName": "accounts",
@@ -51,11 +51,137 @@
             "id"
           ]
         }
+      },
+      {
+        "tableName": "parcels",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`shipmentNumber` TEXT NOT NULL, `shipmentType` TEXT NOT NULL, `senderName` TEXT NOT NULL, `type` TEXT NOT NULL, `pickupData_name` TEXT, `pickupData_latitude` REAL, `pickupData_longitude` REAL, `pickupData_city` TEXT, `pickupData_address` TEXT, `pickupData_openCode` TEXT, `pickupData_openQrCode` TEXT, `userId` INTEGER NOT NULL, PRIMARY KEY(`shipmentNumber`))",
+        "fields": [
+          {
+            "fieldPath": "shipmentNumber",
+            "columnName": "shipmentNumber",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shipmentType",
+            "columnName": "shipmentType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "senderName",
+            "columnName": "senderName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pickupData_name",
+            "columnName": "pickupData_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "pickupData_latitude",
+            "columnName": "pickupData_latitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "pickupData_longitude",
+            "columnName": "pickupData_longitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "pickupData_city",
+            "columnName": "pickupData_city",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "pickupData_address",
+            "columnName": "pickupData_address",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "pickupData_openCode",
+            "columnName": "pickupData_openCode",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "pickupData_openQrCode",
+            "columnName": "pickupData_openQrCode",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "shipmentNumber"
+          ]
+        }
+      },
+      {
+        "tableName": "parcel_events",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`shipmentNumber` TEXT NOT NULL, `type` TEXT NOT NULL, `date` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`shipmentNumber`) REFERENCES `parcels`(`shipmentNumber`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "shipmentNumber",
+            "columnName": "shipmentNumber",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "parcels",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "shipmentNumber"
+            ],
+            "referencedColumns": [
+              "shipmentNumber"
+            ]
+          }
+        ]
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9ce4644a63baa1ffe1b63461cc88e286')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '11b3d627cdea7d075e597fdfe837e571')"
     ]
   }
 }

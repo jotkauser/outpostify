@@ -16,6 +16,7 @@
 
     <string name="Navigation_Parcels">Parcels</string>
     <string name="Navigation_Settings">Settings</string>
+    <string name="Navigation_Labs">Labs</string>
 
     <string name="Parcels_Received">Received</string>
     <string name="Parcels_Sent">Sent</string>
@@ -23,6 +24,8 @@
     <string name="Parcels_NoReceived">No received parcels</string>
     <string name="Parcels_NoSent">No sent parcels</string>
     <string name="Parcels_NoReturned">No returned parcels</string>
+    <string name="Parcels_Sender">Sender</string>
+    <string name="Parcels_Number">Parcel number</string>
 
     <string name="FatalError_Title">Uncaught error</string>
     <string name="FatalError_Copy">Copy</string>

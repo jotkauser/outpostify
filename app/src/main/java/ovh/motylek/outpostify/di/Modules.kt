@@ -9,6 +9,7 @@ import org.koin.ksp.generated.module
 import ovh.motylek.outpostify.data.database.OutPostifyDatabase
 import ovh.motylek.outpostify.data.database.createDatabase
 import ovh.motylek.outpostify.data.repository.AccountRepository
+import ovh.motylek.outpostify.data.repository.ParcelRepository
 import ovh.motylek.outpostify.service.ClientManager
 
 
@@ -24,10 +25,12 @@ val databaseModule = module {
 
 val daoModule = module {
     single { get<OutPostifyDatabase>().accountDao() }
+    single { get<OutPostifyDatabase>().parcelDao() }
 }
 
 val repositoryModule = module {
     singleOf(::AccountRepository)
+    singleOf(::ParcelRepository)
 }
 
 val appCoreModule = module {
