@@ -23,4 +23,8 @@
     <string name="Parcels_NoReceived">No received parcels</string>
     <string name="Parcels_NoSent">No sent parcels</string>
     <string name="Parcels_NoReturned">No returned parcels</string>
+
+    <string name="FatalError_Title">Uncaught error</string>
+    <string name="FatalError_Copy">Copy</string>
+    <string name="FatalError_Exit">Exit</string>
 </resources>

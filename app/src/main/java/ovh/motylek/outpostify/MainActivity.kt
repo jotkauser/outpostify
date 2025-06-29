@@ -1,25 +1,30 @@
 package ovh.motylek.outpostify
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Process
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import ovh.motylek.outpostify.ui.Navigation
 import ovh.motylek.outpostify.ui.theme.OutPostifyTheme
+import kotlin.system.exitProcess
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        Thread.setDefaultUncaughtExceptionHandler { _, exception ->
+            exception.printStackTrace()
+            val intent = Intent(this, CrashActivity::class.java)
+            intent.putExtra("exception", exception.stackTraceToString())
+            startActivity(intent)
+            Process.killProcess(Process.myPid())
+            exitProcess(0)
+        }
         setContent {
             OutPostifyTheme {
+
                 Navigation()
             }
         }
