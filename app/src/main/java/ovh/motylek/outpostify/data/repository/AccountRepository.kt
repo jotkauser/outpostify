@@ -17,4 +17,7 @@ class AccountRepository(
     suspend fun updateAccount(accountEntity: AccountEntity) = accountDao.update(accountEntity)
 
     suspend fun getAccountById(id: Long): AccountEntity = accountDao.getById(id)
+
+    suspend fun switchAccount(accountEntity: AccountEntity)
+            = accountDao.switchCurrent(accountEntity.id)
 }

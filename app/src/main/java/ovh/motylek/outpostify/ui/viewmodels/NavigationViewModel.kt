@@ -3,7 +3,6 @@ package ovh.motylek.outpostify.ui.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.koin.android.annotation.KoinViewModel
@@ -20,15 +19,15 @@ class NavigationViewModel(
 ) : ViewModel() {
     val userId = MutableStateFlow(0)
     val accounts = MutableStateFlow(listOf<AccountEntity>())
-    val userSwtitcherVisible = MutableStateFlow(false)
+    val userSwitcherVisible = MutableStateFlow(false)
+
     fun getStartDestination(): Any = runBlocking {
         if (accountRepository.getAllAccounts().isEmpty()) {
             return@runBlocking Welcome
         } else {
-            val first = accountRepository.getCurrentAccount()
-            userId.value = first.id.toInt()
-            return@runBlocking Parcels(first.id)
-
+            val account = accountRepository.getCurrentAccount()
+            userId.value = account.id.toInt()
+            return@runBlocking Parcels(account.id)
         }
     }
 
@@ -44,21 +43,19 @@ class NavigationViewModel(
     }
 
     fun showUserSwitcher() {
-        userSwtitcherVisible.value = true
+        userSwitcherVisible.value = true
         viewModelScope.launch {
             accounts.value = accountRepository.getAllAccounts()
         }
     }
 
     fun hideUserSwitcher() {
-        userSwtitcherVisible.value = false
+        userSwitcherVisible.value = false
     }
 
     suspend fun switchUser(account: AccountEntity) {
-        val oldAccount = accountRepository.getAccountById(userId.value.toLong())
-        accountRepository.updateAccount(oldAccount.copy(selected = false).apply { id = oldAccount.id })
+        accountRepository.switchAccount(account)
         userId.value = account.id.toInt()
-        accountRepository.updateAccount(account.copy(selected = true).apply { id = account.id})
-        userSwtitcherVisible.value = false
+        userSwitcherVisible.value = false
     }
 }

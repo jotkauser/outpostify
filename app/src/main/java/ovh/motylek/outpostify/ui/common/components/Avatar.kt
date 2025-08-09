@@ -12,16 +12,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun Avatar(
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
+    size: Dp = 32.dp,
+    content: @Composable () -> Unit,
 ) {
     Box(
         modifier = modifier
-            .size(48.dp)
+            .size(size)
             .clip(CircleShape)
             .background(MaterialTheme.colorScheme.surfaceContainer)
     ) {

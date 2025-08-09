@@ -75,10 +75,11 @@ fun Navigation(
     var currentScreen by remember { mutableStateOf<Any?>(Welcome) }
     val noBottomNavScreens = listOf(Welcome, AddAccount)
     val navController = rememberNavController()
-    val userId by viewModel.userId.collectAsStateWithLifecycle()
-    val accountSwitcherState by viewModel.userSwtitcherVisible.collectAsStateWithLifecycle()
-    val accounts by viewModel.accounts.collectAsStateWithLifecycle()
     val coroutineScope = rememberCoroutineScope()
+
+    val userId by viewModel.userId.collectAsStateWithLifecycle()
+    val accountSwitcherState by viewModel.userSwitcherVisible.collectAsStateWithLifecycle()
+    val accounts by viewModel.accounts.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {

@@ -8,6 +8,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocalShipping
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -40,7 +41,7 @@ fun ParcelsScreen(
         stringResource(R.string.Parcels_Returned)
     )
     Column {
-        TabRow(
+        PrimaryTabRow(
             selectedTabIndex = pagerState.currentPage,
             tabs = {
                 tabs.forEachIndexed { index, title ->

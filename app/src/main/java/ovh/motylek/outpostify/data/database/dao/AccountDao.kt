@@ -3,6 +3,7 @@ package ovh.motylek.outpostify.data.database.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 import ovh.motylek.outpostify.data.database.entities.AccountEntity
 
 @Dao
@@ -20,4 +21,16 @@ interface AccountDao : BaseDao<AccountEntity> {
 
     @Insert
     suspend fun insertAndGetId(accountEntity: AccountEntity): Long
+
+    @Query("UPDATE accounts SET selected = 1 WHERE id = :id")
+    suspend fun updateCurrent(id: Long)
+
+    @Query("UPDATE accounts SET selected = 0")
+    suspend fun resetCurrent()
+
+    @Transaction
+    suspend fun switchCurrent(id: Long) {
+        resetCurrent()
+        updateCurrent(id)
+    }
 }
