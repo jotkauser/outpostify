@@ -1,5 +1,6 @@
 package ovh.motylek.outpostify.ui.viewmodels
 
+import android.os.Build
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +19,14 @@ class AddAccountViewModel(
     private val accountsRepository: AccountRepository
 ): ViewModel() {
     val phoneNumber = MutableStateFlow("")
-    val loginClient = InPostLoginClient()
+
+    val loginClient = InPostLoginClient(
+        androidVersion = Build.VERSION.RELEASE,
+        deviceModel = Build.MODEL,
+        deviceManufacturer = Build.MANUFACTURER,
+        deviceCodename = Build.DEVICE
+    )
+
     val showSmsField = MutableStateFlow(false)
     val buttonLoading = MutableStateFlow(false)
     val smsCode = MutableStateFlow("")

@@ -15,7 +15,7 @@ class ParcelRepository(
         userId: Long,
         type: ParcelType
     ) {
-        clientManager.ClientTask(userId) {
+        clientManager.clientTask(userId) {
             val parcels = when (type) {
                 ParcelType.RECEIVED -> it.getTrackedParcels()
                 ParcelType.SENT -> TODO()

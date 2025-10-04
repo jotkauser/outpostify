@@ -1,8 +1,6 @@
 package ovh.motylek.outpostify.api
 
-import android.os.Build
 import io.ktor.client.HttpClient
-import io.ktor.client.call.body
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.UserAgent
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -14,15 +12,16 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
 import io.ktor.http.URLBuilder
 import io.ktor.http.contentType
-import io.ktor.http.headers
 import kotlinx.serialization.json.Json
 import ovh.motylek.outpostify.api.endpoints.InPostApiEndpoints
 
-internal class InPostHttpClient {
-    private val androidVersion = Build.VERSION.RELEASE
-    private val deviceModel = Build.MODEL
-    private val deviceManufacturer = Build.MANUFACTURER
-    private val deviceCodename = Build.DEVICE
+internal class InPostHttpClient(
+    val androidVersion: String,
+    val deviceModel: String,
+    val deviceManufacturer: String,
+    val deviceCodename: String
+) {
+
     val httpClient = HttpClient(OkHttp) {
         install(ContentNegotiation) {
             Json {

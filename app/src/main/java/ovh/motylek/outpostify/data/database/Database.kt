@@ -15,7 +15,7 @@ import ovh.motylek.outpostify.data.database.entities.ParcelEventEntity
         AccountEntity::class,
         ParcelEntity::class,
         ParcelEventEntity::class
-        ],
+    ],
     exportSchema = false
 )
 @TypeConverters(Converters::class)

@@ -1,6 +1,5 @@
 package ovh.motylek.outpostify.api
 
-import io.ktor.client.call.body
 import io.ktor.client.statement.bodyAsText
 import kotlinx.serialization.json.Json
 import ovh.motylek.outpostify.api.endpoints.InPostApiEndpoints
@@ -9,8 +8,13 @@ import ovh.motylek.outpostify.api.types.InPostSmsCodeRequest
 import ovh.motylek.outpostify.api.types.InPostSmsRequest
 import ovh.motylek.outpostify.api.types.InPostTokenResponse
 
-class InPostLoginClient {
-    private val httpClient = InPostHttpClient()
+class InPostLoginClient(
+    androidVersion: String,
+    deviceModel: String,
+    deviceManufacturer: String,
+    deviceCodename: String
+) {
+    private val httpClient = InPostHttpClient(androidVersion, deviceModel, deviceManufacturer, deviceCodename)
 
     suspend fun requestSms(phoneNumber: String) {
         httpClient.post<InPostSmsRequest>(

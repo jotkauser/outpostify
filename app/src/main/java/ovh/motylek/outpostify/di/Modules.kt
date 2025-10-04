@@ -12,7 +12,6 @@ import ovh.motylek.outpostify.data.repository.AccountRepository
 import ovh.motylek.outpostify.data.repository.ParcelRepository
 import ovh.motylek.outpostify.service.ClientManager
 
-
 @Module
 @ComponentScan("ovh.motylek.outpostify.ui")
 class ViewModelsModule()

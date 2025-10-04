@@ -37,7 +37,7 @@ class NavigationViewModel(
                 if (it == 0) {
                     return@collect
                 }
-                clientManager.initSyncClient(it.toLong())
+                clientManager.initApiClient(it.toLong())
             }
         }
     }

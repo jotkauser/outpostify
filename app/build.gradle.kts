@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "ovh.motylek.outpostify"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "ovh.motylek.outpostify"
         minSdk = 25
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 

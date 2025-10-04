@@ -10,9 +10,14 @@ import ovh.motylek.outpostify.api.types.InPostRefreshResponse
 
 internal class InPostApi(
     val refreshToken: String,
-    val accessToken: String
+    val accessToken: String,
+
+    androidVersion: String,
+    deviceModel: String,
+    deviceManufacturer: String,
+    deviceCodename: String
 ) {
-    private val httpClient = InPostHttpClient()
+    private val httpClient = InPostHttpClient(androidVersion, deviceModel, deviceManufacturer, deviceCodename)
     private val json = Json {
         ignoreUnknownKeys = true
     }

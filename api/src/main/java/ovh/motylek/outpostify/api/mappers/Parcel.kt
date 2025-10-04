@@ -1,6 +1,6 @@
 package ovh.motylek.outpostify.api.mappers
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -11,6 +11,7 @@ import ovh.motylek.outpostify.api.data.ParcelShipmentType
 import ovh.motylek.outpostify.api.data.ParcelStatus
 import ovh.motylek.outpostify.api.data.ParcelType
 import ovh.motylek.outpostify.api.types.InPostParcel
+import kotlin.time.ExperimentalTime
 
 fun List<InPostParcel>.mapParcels(type: ParcelType): List<Parcel> = map {
     Parcel(
@@ -33,10 +34,10 @@ fun List<InPostParcel>.mapParcels(type: ParcelType): List<Parcel> = map {
                 city = it.pickUpPoint.addressDetails.city
             )
         } else { null },
-        events = it.eventLog.map {
+        events = it.eventLog.map { p ->
             ParcelEvent(
-                date = parseTime(it.date),
-                status = when (it.name) {
+                date = parseTime(p.date),
+                status = when (p.name) {
                     "CONFIRMED" -> ParcelStatus.CREATED
                     "DISPATCHED_BY_SENDER" -> ParcelStatus.SENT
                     "TAKEN_BY_COURIER" -> ParcelStatus.TAKEN_BY_COURIER
@@ -52,6 +53,7 @@ fun List<InPostParcel>.mapParcels(type: ParcelType): List<Parcel> = map {
     )
 }
 
+@OptIn(ExperimentalTime::class)
 private fun parseTime(string: String): LocalDateTime {
     val instant = Instant.parse(string)
     val timezone = TimeZone.of("Europe/Warsaw")
