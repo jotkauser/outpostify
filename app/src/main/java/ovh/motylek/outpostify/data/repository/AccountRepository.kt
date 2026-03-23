@@ -1,5 +1,6 @@
 package ovh.motylek.outpostify.data.repository
 
+import kotlinx.coroutines.flow.Flow
 import ovh.motylek.outpostify.data.database.dao.AccountDao
 import ovh.motylek.outpostify.data.database.entities.AccountEntity
 
@@ -12,11 +13,11 @@ class AccountRepository(
 
     suspend fun getFirstAccount(): AccountEntity = accountDao.getFirst()
 
-    suspend fun getCurrentAccount(): AccountEntity = accountDao.getSelected()
+    fun getCurrentAccount(): Flow<AccountEntity> = accountDao.getSelected()
 
     suspend fun updateAccount(accountEntity: AccountEntity) = accountDao.update(accountEntity)
 
-    suspend fun getAccountById(id: Long): AccountEntity = accountDao.getById(id)
+    suspend fun getAccount(id: Long): Flow<AccountEntity> = accountDao.getById(id)
 
     suspend fun switchAccount(accountEntity: AccountEntity)
             = accountDao.switchCurrent(accountEntity.id)

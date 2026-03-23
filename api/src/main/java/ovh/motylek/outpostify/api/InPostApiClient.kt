@@ -10,15 +10,15 @@ import ovh.motylek.outpostify.api.utils.getJwtExpiration
 import kotlin.time.ExperimentalTime
 
 class InPostApiClient(
-    val refreshToken: String,
-    val accessToken: String,
+    var refreshToken: String,
+    var accessToken: String,
 
     val androidVersion: String,
     val deviceModel: String,
     val deviceManufacturer: String,
     val deviceCodename: String
 ) {
-    private val api = InPostApi(refreshToken, accessToken, androidVersion, deviceModel, deviceManufacturer, deviceCodename)
+    private var api = createInPostApi()
 
     @OptIn(ExperimentalTime::class)
     fun isRenewCredentialsNeeded(): Boolean {
@@ -27,7 +27,14 @@ class InPostApiClient(
         return tokenExpiration < now
     }
 
-    suspend fun renewCredentials(): String = api.renewCredentials()
+    suspend fun renewCredentials(): String {
+        val newToken = api.renewCredentials()
+        this.accessToken = newToken
+        this.api = createInPostApi()
+        return newToken
+    }
 
     suspend fun getTrackedParcels(): List<Parcel> = api.getTrackedParcels().mapParcels(ParcelType.RECEIVED)
+
+    private fun createInPostApi() = InPostApi(refreshToken, accessToken, androidVersion, deviceModel, deviceManufacturer, deviceCodename)
 }

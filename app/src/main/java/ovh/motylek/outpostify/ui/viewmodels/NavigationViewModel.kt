@@ -3,6 +3,7 @@ package ovh.motylek.outpostify.ui.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.koin.android.annotation.KoinViewModel
@@ -25,20 +26,9 @@ class NavigationViewModel(
         if (accountRepository.getAllAccounts().isEmpty()) {
             return@runBlocking Welcome
         } else {
-            val account = accountRepository.getCurrentAccount()
+            val account = accountRepository.getCurrentAccount().first()
             userId.value = account.id.toInt()
             return@runBlocking Parcels(account.id)
-        }
-    }
-
-    init {
-        viewModelScope.launch {
-            userId.collect {
-                if (it == 0) {
-                    return@collect
-                }
-                clientManager.initApiClient(it.toLong())
-            }
         }
     }
 

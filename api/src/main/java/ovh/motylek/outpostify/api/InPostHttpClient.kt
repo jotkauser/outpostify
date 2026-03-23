@@ -30,12 +30,8 @@ internal class InPostHttpClient(
             }
         }
         install(UserAgent) {
-            agent = "InPost-Mobile/3.41.1(34101000) (Android $androidVersion; $deviceModel; Xiaomi $deviceCodename; en)"
+            agent = "InPost-Mobile/4.8.1(40801000) (Android $androidVersion; $deviceModel; $deviceManufacturer $deviceCodename; en)"
         }
-    }
-
-    suspend fun testClient() {
-        httpClient.get("https://motylek.ovh")
     }
 
     suspend fun get(url: String, query: Map<String, String>?, headers: Map<String, String>?): HttpResponse {

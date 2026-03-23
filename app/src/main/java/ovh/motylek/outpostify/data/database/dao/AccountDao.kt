@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import kotlinx.coroutines.flow.Flow
 import ovh.motylek.outpostify.data.database.entities.AccountEntity
 
 @Dao
@@ -14,10 +15,10 @@ interface AccountDao : BaseDao<AccountEntity> {
     suspend fun getFirst(): AccountEntity
 
     @Query("SELECT * FROM accounts WHERE selected = 1")
-    suspend fun getSelected(): AccountEntity
+    fun getSelected(): Flow<AccountEntity>
 
     @Query("SELECT * FROM accounts WHERE id = :id")
-    suspend fun getById(id: Long): AccountEntity
+    fun getById(id: Long): Flow<AccountEntity>
 
     @Insert
     suspend fun insertAndGetId(accountEntity: AccountEntity): Long

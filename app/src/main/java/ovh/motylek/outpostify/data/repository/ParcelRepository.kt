@@ -15,15 +15,14 @@ class ParcelRepository(
         userId: Long,
         type: ParcelType
     ) {
-        clientManager.clientTask(userId) {
-            val parcels = when (type) {
-                ParcelType.RECEIVED -> it.getTrackedParcels()
-                ParcelType.SENT -> TODO()
-                ParcelType.RETURNED -> TODO()
-            }
-            val mappedParcels = parcels.mapToEntities(userId)
-            parcelDao.removeAllSaveNew(mappedParcels.first, mappedParcels.second)
+        val client = clientManager.getApiClient(userId)
+        val parcels = when (type) {
+            ParcelType.RECEIVED -> client.getTrackedParcels()
+            ParcelType.SENT -> TODO()
+            ParcelType.RETURNED -> TODO()
         }
+        val mappedParcels = parcels.mapToEntities(userId)
+        parcelDao.removeAllSaveNew(mappedParcels.first, mappedParcels.second)
 
     }
 

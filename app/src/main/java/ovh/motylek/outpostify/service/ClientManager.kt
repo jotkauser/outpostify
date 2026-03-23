@@ -1,6 +1,9 @@
 package ovh.motylek.outpostify.service
 
 import android.os.Build
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import ovh.motylek.outpostify.api.InPostApiClient
 import ovh.motylek.outpostify.api.utils.getJwtExpiration
 import ovh.motylek.outpostify.data.repository.AccountRepository
@@ -8,30 +11,37 @@ import ovh.motylek.outpostify.data.repository.AccountRepository
 class ClientManager(
     private val accountRepository: AccountRepository
 ) {
+    private val mutexes = mutableMapOf<Long, Mutex>()
     private val apiClients = mutableMapOf<Long, InPostApiClient>()
 
-    suspend fun initApiClient(userId: Long) {
-        val user = accountRepository.getAccountById(userId)
-        val client = InPostApiClient(
-            refreshToken = user.refreshToken,
-            accessToken = user.accessToken,
-
-            androidVersion = Build.VERSION.RELEASE,
-            deviceModel = Build.MODEL,
-            deviceManufacturer = Build.MANUFACTURER,
-            deviceCodename = Build.DEVICE
-        )
-        if (client.isRenewCredentialsNeeded()) {
-            val newToken = client.renewCredentials()
-            accountRepository.updateAccount(user.copy(accessToken = newToken, tokenExpiration = getJwtExpiration(newToken)).apply { id = user.id })
+    suspend fun getApiClient(userId: Long): InPostApiClient {
+        val mutex = mutexes.computeIfAbsent(userId) { Mutex() }
+        return mutex.withLock {
+            val account = accountRepository.getAccount(userId).first()
+            val client = apiClients.getOrPut(userId) {
+                InPostApiClient(
+                    refreshToken = account.refreshToken,
+                    accessToken = account.accessToken,
+                    androidVersion = Build.VERSION.RELEASE,
+                    deviceModel = Build.MODEL,
+                    deviceManufacturer = Build.MANUFACTURER,
+                    deviceCodename = Build.DEVICE
+                )
+            }
+            if (client.isRenewCredentialsNeeded()) {
+                try {
+                    val newToken = client.renewCredentials()
+                    accountRepository.updateAccount(
+                        account.copy(
+                            accessToken = newToken,
+                            tokenExpiration = getJwtExpiration(newToken)
+                        )
+                    )
+                } catch (e: Exception) {
+                    throw e
+                }
+            }
+            client
         }
-        apiClients[userId] = client
-    }
-
-    suspend fun clientTask(
-        userId: Long,
-        callback: suspend (InPostApiClient) -> Unit
-    ) {
-        callback(apiClients[userId]!!)
     }
 }
