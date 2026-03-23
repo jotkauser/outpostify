@@ -28,6 +28,7 @@ internal fun EntryProviderScope<Route>.screens(
             scope = screenScope,
             onSuccess = {
                 backStack.clear()
+                backStack.add(Route.Parcels)
             }
         )
     }
