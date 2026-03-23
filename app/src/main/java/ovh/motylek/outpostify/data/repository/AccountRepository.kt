@@ -9,11 +9,12 @@ class AccountRepository(
 ) {
     suspend fun saveAccount(accountEntity: AccountEntity): Long = accountDao.insertAndGetId(accountEntity)
 
-    suspend fun getAllAccounts(): List<AccountEntity> = accountDao.getAll()
+    fun getAllAccounts(): Flow<List<AccountEntity>> = accountDao.getAll()
 
     suspend fun getFirstAccount(): AccountEntity = accountDao.getFirst()
 
-    fun getCurrentAccount(): Flow<AccountEntity> = accountDao.getSelected()
+    fun getCurrentAccount(): Flow<AccountEntity?> = accountDao.getSelected()
+
 
     suspend fun updateAccount(accountEntity: AccountEntity) = accountDao.update(accountEntity)
 

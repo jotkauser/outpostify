@@ -12,6 +12,7 @@ import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -22,14 +23,18 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import ovh.motylek.outpostify.R
 import ovh.motylek.outpostify.ui.common.views.EmptyView
-import ovh.motylek.outpostify.ui.routes.Parcels
 import ovh.motylek.outpostify.ui.viewmodels.parcels.ParcelsViewModel
 import androidx.compose.runtime.getValue
+import ovh.motylek.outpostify.ui.common.components.ScreenScaffold
+import ovh.motylek.outpostify.ui.common.components.ScreenScope
+import ovh.motylek.outpostify.ui.routes.Route
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ParcelsScreen(
-    args: Parcels,
+    args: Route.Parcels,
+    scope: ScreenScope,
+    avatar: @Composable () -> Unit,
     viewModel: ParcelsViewModel = koinViewModel()
 ) {
     val pagerState = rememberPagerState { 3 }
@@ -40,50 +45,63 @@ fun ParcelsScreen(
         stringResource(R.string.Parcels_Sent),
         stringResource(R.string.Parcels_Returned)
     )
-    Column {
-        PrimaryTabRow(
-            selectedTabIndex = pagerState.currentPage,
-            tabs = {
-                tabs.forEachIndexed { index, title ->
-                    Tab(
-                        selected = pagerState.currentPage == index,
-                        onClick = {
-                            coroutineScope.launch {
-                                pagerState.scrollToPage(index)
-                            }
-                        },
-                        text = { Text(text = title) }
-                    )
+    ScreenScaffold(
+        scope = scope,
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(stringResource(R.string.Navigation_Parcels))
+                },
+                actions = { avatar() },
+                modifier = it
+            )
+        }
+    ) {
+        Column {
+            PrimaryTabRow(
+                selectedTabIndex = pagerState.currentPage,
+                tabs = {
+                    tabs.forEachIndexed { index, title ->
+                        Tab(
+                            selected = pagerState.currentPage == index,
+                            onClick = {
+                                coroutineScope.launch {
+                                    pagerState.scrollToPage(index)
+                                }
+                            },
+                            text = { Text(text = title) }
+                        )
+                    }
                 }
-            }
-        )
-        PullToRefreshBox(
-            isRefreshing = isRefreshing,
-            onRefresh = { coroutineScope.launch { viewModel.refreshParcels() } },
-        ) {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
+            )
+            PullToRefreshBox(
+                isRefreshing = isRefreshing,
+                onRefresh = { coroutineScope.launch { viewModel.refreshParcels() } },
             ) {
-                item {
-                    HorizontalPager(pagerState, modifier = Modifier.fillParentMaxHeight()) { page ->
-                        when (page) {
-                            0 -> {
-                                ReceivedParcelsScreen(args)
-                            }
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+                    item {
+                        HorizontalPager(pagerState, modifier = Modifier.fillParentMaxHeight()) { page ->
+                            when (page) {
+                                0 -> {
+                                    ReceivedParcelsScreen()
+                                }
 
-                            1 -> {
-                                EmptyView(
-                                    Icons.Default.LocalShipping,
-                                    stringResource(R.string.Parcels_NoSent)
-                                )
-                            }
+                                1 -> {
+                                    EmptyView(
+                                        Icons.Default.LocalShipping,
+                                        stringResource(R.string.Parcels_NoSent)
+                                    )
+                                }
 
-                            2 -> {
-                                EmptyView(
-                                    Icons.Default.LocalShipping,
-                                    stringResource(R.string.Parcels_NoReturned)
-                                )
+                                2 -> {
+                                    EmptyView(
+                                        Icons.Default.LocalShipping,
+                                        stringResource(R.string.Parcels_NoReturned)
+                                    )
+                                }
                             }
                         }
                     }
@@ -91,4 +109,5 @@ fun ParcelsScreen(
             }
         }
     }
+
 }

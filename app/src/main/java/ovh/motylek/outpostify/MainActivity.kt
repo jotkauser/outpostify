@@ -6,7 +6,7 @@ import android.os.Process
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import ovh.motylek.outpostify.ui.Navigation
+import ovh.motylek.outpostify.ui.screens.main.MainView
 import ovh.motylek.outpostify.ui.theme.OutPostifyTheme
 import kotlin.system.exitProcess
 
@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
         }
         setContent {
             OutPostifyTheme {
-                Navigation()
+                MainView()
             }
         }
     }

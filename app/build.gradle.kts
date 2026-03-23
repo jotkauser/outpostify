@@ -59,7 +59,9 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
 
-    implementation(libs.compose.navigation)
+    implementation(libs.androidx.navigation3.compose)
+    implementation(libs.androidx.navigation3)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.koin)
     implementation(libs.koin.compose)
     implementation(libs.koin.android)

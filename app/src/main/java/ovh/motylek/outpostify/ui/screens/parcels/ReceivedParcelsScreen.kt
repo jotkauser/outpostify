@@ -20,12 +20,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.androidx.compose.koinViewModel
 import ovh.motylek.outpostify.R
 import ovh.motylek.outpostify.ui.common.views.EmptyView
-import ovh.motylek.outpostify.ui.routes.Parcels
 import ovh.motylek.outpostify.ui.viewmodels.parcels.ReceivedParcelsViewModel
 
 @Composable
 fun ReceivedParcelsScreen(
-    args: Parcels,
     viewModel: ReceivedParcelsViewModel = koinViewModel()
 ) {
     val parcels by viewModel.parcels.collectAsStateWithLifecycle()

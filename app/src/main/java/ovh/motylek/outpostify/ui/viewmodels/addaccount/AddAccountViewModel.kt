@@ -1,4 +1,4 @@
-package ovh.motylek.outpostify.ui.viewmodels
+package ovh.motylek.outpostify.ui.viewmodels.addaccount
 
 import android.os.Build
 import androidx.lifecycle.ViewModel
@@ -10,7 +10,6 @@ import kotlinx.coroutines.withContext
 import org.koin.android.annotation.KoinViewModel
 import ovh.motylek.outpostify.api.InPostLoginClient
 import ovh.motylek.outpostify.api.utils.getJwtExpiration
-import ovh.motylek.outpostify.data.database.OutPostifyDatabase
 import ovh.motylek.outpostify.data.database.entities.AccountEntity
 import ovh.motylek.outpostify.data.repository.AccountRepository
 

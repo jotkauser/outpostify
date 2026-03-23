@@ -10,12 +10,12 @@ import ovh.motylek.outpostify.data.database.entities.AccountEntity
 @Dao
 interface AccountDao : BaseDao<AccountEntity> {
     @Query("SELECT * FROM accounts")
-    suspend fun getAll(): List<AccountEntity>
+    fun getAll(): Flow<List<AccountEntity>>
     @Query("SELECT * FROM accounts LIMIT 1")
     suspend fun getFirst(): AccountEntity
 
     @Query("SELECT * FROM accounts WHERE selected = 1")
-    fun getSelected(): Flow<AccountEntity>
+    fun getSelected(): Flow<AccountEntity?>
 
     @Query("SELECT * FROM accounts WHERE id = :id")
     fun getById(id: Long): Flow<AccountEntity>

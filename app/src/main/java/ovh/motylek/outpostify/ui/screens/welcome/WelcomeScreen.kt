@@ -1,4 +1,4 @@
-package ovh.motylek.outpostify.ui.screens
+package ovh.motylek.outpostify.ui.screens.welcome
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -16,16 +15,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.google.accompanist.drawablepainter.DrawablePainter
 import ovh.motylek.outpostify.R
-import ovh.motylek.outpostify.ui.routes.AddAccount
+import ovh.motylek.outpostify.ui.routes.Route
 
 @Composable
 fun WelcomeScreen(
-    navController: NavController
+    args: Route.Welcome,
+    onNavigate: () -> Unit,
 ) {
     val context = LocalContext.current
     val icon = context.packageManager.getApplicationIcon(context.packageName)
@@ -45,7 +43,7 @@ fun WelcomeScreen(
             style = MaterialTheme.typography.titleLarge
         )
         OutlinedButton(onClick = {
-            navController.navigate(AddAccount)
+            onNavigate()
         }, modifier = Modifier.fillMaxWidth().padding(horizontal = 90.dp)) {
             Text(
                 text = stringResource(R.string.Welcome_Button),
