@@ -48,7 +48,7 @@ fun ReceivedParcelsScreen(
                             modifier = Modifier.padding(16.dp),
                         ) {
                             Text(
-                                text = it.events[0].status.name,
+                                text = it.events[0].type.name,
                                 modifier = Modifier.padding(bottom = 8.dp),
                                 style = MaterialTheme.typography.titleLarge,
                             )
@@ -57,7 +57,7 @@ fun ReceivedParcelsScreen(
                                 style = MaterialTheme.typography.labelLarge,
                             )
                             Text(
-                                text = it.shipmentNumber,
+                                text = it.parcel.shipmentNumber,
                                 style = MaterialTheme.typography.bodyMedium,
                                 modifier = Modifier.padding(bottom = 8.dp)
                             )
@@ -66,7 +66,7 @@ fun ReceivedParcelsScreen(
                                 style = MaterialTheme.typography.labelLarge,
                             )
                             Text(
-                                text = it.senderName ?: "???",
+                                text = it.parcel.senderName ?: "???",
                                 style = MaterialTheme.typography.bodyMedium,
                             )
 

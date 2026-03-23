@@ -1,5 +1,5 @@
 [versions]
-agp = "8.11.2"
+agp = "8.13.2"
 kotlin = "2.3.20"
 coreKtx = "1.18.0"
 lifecycleRuntimeKtx = "2.10.0"
@@ -12,6 +12,7 @@ kotlin-ksp = "2.3.6"
 koin = "4.2.0"
 koin-annotations = "2.3.1"
 kotlin-serialization = "1.10.0"
+material3 = "1.5.0-alpha15"
 accompanist-drawablepainter = "0.37.3"
 kotlin-coroutines = "1.10.2"
 ktor = "3.4.1"
@@ -19,7 +20,7 @@ androidx-room = "2.8.4"
 sqlite = "2.6.2"
 kotlinx-datetime = "0.7.1"
 material-icons-extended = "1.7.8"
-lifecycleViewmodelNav3 = "2.11.0-alpha02"
+lifecycleViewmodelNav3 = "2.10.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -31,7 +32,7 @@ androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-navigation3-compose = { group = "androidx.navigation3", name = "navigation3-ui", version.ref = "compose-navigation3" }
 androidx-navigation3 = { group =  "androidx.navigation3",  name = "navigation3-runtime", version.ref = "compose-navigation3" }

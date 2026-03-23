@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
 import org.koin.android.annotation.KoinViewModel
+import ovh.motylek.outpostify.api.data.ParcelType
 import ovh.motylek.outpostify.data.repository.AccountRepository
 import ovh.motylek.outpostify.data.repository.ParcelRepository
 
@@ -24,7 +25,7 @@ class ReceivedParcelsViewModel(
     val parcels = currentAccount
         .filterNotNull()
         .flatMapLatest {
-            parcelRepository.getParcels(it.id)
+            parcelRepository.getParcels(it, ParcelType.RECEIVED, true)
         }
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 }

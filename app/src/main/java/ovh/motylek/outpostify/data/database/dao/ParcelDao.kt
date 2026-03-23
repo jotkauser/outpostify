@@ -23,20 +23,18 @@ interface ParcelDao : BaseDao<ParcelEntity> {
     suspend fun getParcelWithEvents(id: String): ParcelWithEvents
 
     @Transaction
-    @Query("SELECT * FROM parcels")
-    fun getAllParcelsWithEvents(): Flow<List<ParcelWithEvents>>
+    @Query("SELECT * FROM parcels WHERE userId = :userId")
+    fun getParcelsWithEvents(userId: Long): Flow<List<ParcelWithEvents>>
 
-    @Query("DELETE FROM parcels")
-    suspend fun deleteAll()
+    @Query("DELETE FROM parcels WHERE userId = :userId")
+    suspend fun deleteAll(userId: Long)
 
-    @Query("DELETE FROM parcel_events")
-    suspend fun deleteAllEvents()
-
+    @Query("DELETE FROM parcels WHERE shipmentNumber IN (:parcels)")
+    suspend fun deleteMany(parcels: List<String>)
 
     @Transaction
     suspend fun removeAllSaveNew(parcels: List<ParcelEntity>, events: List<ParcelEventEntity>) {
-        deleteAll()
-        deleteAllEvents()
+        deleteMany(parcels.map { it.shipmentNumber })
         insertAll(parcels)
         insertEvents(events)
     }
