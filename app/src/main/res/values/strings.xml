@@ -48,4 +48,6 @@
     <string name="Parcels_Availability">Availability</string>
     <string name="Parcels_Location">Location</string>
     <string name="Parcels_ShowOnMap">Show on map</string>
+    <string name="Parcels_NoMapApp_Message">No map application is installed on your device to open this location.</string>
+    <string name="Parcels_NoMapApp_Title">No map app found</string>
 </resources>
