@@ -37,9 +37,12 @@ data class ParcelPickupData(
     val city: String?,
     val address: String?,
     val lockerOpenCode: String?,
-    val lockerQrCode: String?
+    val lockerQrCode: String?,
+    val storedTo: LocalDateTime?,
+    val storedOn: LocalDateTime?,
+    val location: String?,
+    val availability: String?
 )
-
 
 
 data class Parcel(
