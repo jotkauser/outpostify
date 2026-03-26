@@ -13,6 +13,8 @@ data class InPostParcel(
     val shipmentType: String,
     val openCode: String? = null,
     val qrCode: String? = null,
+    val expiryDate: String? = null,
+    val storedDate: String? = null,
     val pickUpPoint: InPostPickupPoint? = null,
     val eventLog: List<InPostEvent>,
     val sender: InPostSender? = null
@@ -21,7 +23,9 @@ data class InPostParcel(
     data class InPostPickupPoint(
         val name: String,
         val location: InPostLocation,
-        val addressDetails: InPostAddress
+        val addressDetails: InPostAddress,
+        val openingHours: String? = null,
+        val locationDescription: String? = null,
     ) {
         @Serializable
         data class InPostLocation(

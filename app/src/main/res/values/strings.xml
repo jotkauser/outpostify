@@ -30,4 +30,24 @@
     <string name="FatalError_Title">Uncaught error</string>
     <string name="FatalError_Copy">Copy</string>
     <string name="FatalError_Exit">Exit</string>
+
+    <string name="CONFIRMED">Created</string>
+    <string name="DISPATCHED_BY_SENDER">Sent</string>
+    <string name="TAKEN_BY_COURIER">Taken by courier</string>
+    <string name="ADOPTED_AT_SOURCE_BRANCH">Accepted at the Logistics Centre</string>
+    <string name="SENT_FROM_SOURCE_BRANCH">Sent from the Logistics Centre</string>
+    <string name="OUT_FOR_DELIVERY">Sent for delivery</string>
+    <string name="READY_TO_PICKUP">Ready to pickup</string>
+    <string name="DELIVERED">Delivered</string>
+    <string name="Parcels_OpenCode">Open Code</string>
+    <string name="Parcels_StoredOn">Stored on</string>
+    <string name="Parcels_PickupBefore">Pick up before</string>
+    <string name="Parcels_TimeLeft">Time left</string>
+    <string name="Parcels_PickupPlace">Pickup place</string>
+    <string name="Parcels_PickupAddress">Pickup address</string>
+    <string name="Parcels_Availability">Availability</string>
+    <string name="Parcels_Location">Location</string>
+    <string name="Parcels_ShowOnMap">Show on map</string>
+    <string name="Parcels_NoMapApp_Message">No map application is installed on your device to open this location.</string>
+    <string name="Parcels_NoMapApp_Title">No map app found</string>
 </resources>
