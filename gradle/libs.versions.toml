@@ -17,10 +17,12 @@ accompanist-drawablepainter = "0.37.3"
 kotlin-coroutines = "1.10.2"
 ktor = "3.4.1"
 androidx-room = "2.8.4"
+qrose = "1.1.2"
 sqlite = "2.6.2"
 kotlinx-datetime = "0.7.1"
 material-icons-extended = "1.7.8"
 lifecycleViewmodelNav3 = "2.10.0"
+animationCore = "1.10.5"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -51,10 +53,12 @@ ktor-content-negotiation = { group = "io.ktor", name = "ktor-client-content-nego
 ktor-engine-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidx-room" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidx-room" }
+qrose = { module = "io.github.alexzhirkevich:qrose", version.ref = "qrose" }
 sqlite = { group = "androidx.sqlite", name = "sqlite", version.ref = "sqlite" }
 sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sqlite" }
 kotlin-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
 material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "material-icons-extended" }
+androidx-compose-animation-core = { group = "androidx.compose.animation", name = "animation-core", version.ref = "animationCore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

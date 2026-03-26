@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ovh.motylek.outpostify.api.data.ParcelShipmentType
 import ovh.motylek.outpostify.api.data.ParcelType
+import kotlinx.datetime.LocalDateTime
 
 @Suppress("PropertyName")
 @Entity(tableName = "parcels")
@@ -17,9 +18,13 @@ data class ParcelEntity(
     val pickupData_latitude: Double?,
     val pickupData_longitude: Double?,
     val pickupData_city: String?,
+    val pickupData_availability: String?,
+    val pickupData_location: String?,
     val pickupData_address: String?,
     val pickupData_openCode: String?,
     val pickupData_openQrCode: String?,
+    val pickupData_storedTo: LocalDateTime?,
+    val pickupData_storedOn: LocalDateTime?,
 
     val userId: Long
 )

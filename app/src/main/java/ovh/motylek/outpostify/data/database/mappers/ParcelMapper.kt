@@ -21,7 +21,11 @@ fun List<Parcel>.mapToEntities(userId: Long): Pair<List<ParcelEntity>, List<Parc
             pickupData_name = it.pickupData?.name,
             pickupData_openCode = it.pickupData?.lockerOpenCode,
             pickupData_openQrCode = it.pickupData?.lockerQrCode,
-            userId = userId
+            userId = userId,
+            pickupData_storedTo = it.pickupData?.storedTo,
+            pickupData_storedOn = it.pickupData?.storedOn,
+            pickupData_availability = it.pickupData?.availability,
+            pickupData_location = it.pickupData?.location,
         )
     }
     val parcelEventEntities = this.flatMap { parcel ->
@@ -45,12 +49,16 @@ fun List<ParcelWithEvents>.mapToParcels(userId: Long): List<Parcel> {
             type = it.parcel.type,
             pickupData = ParcelPickupData(
                 name = it.parcel.pickupData_name,
-                lockerQrCode = it.parcel.pickupData_openQrCode,
-                lockerOpenCode = it.parcel.pickupData_openCode,
                 latitude = it.parcel.pickupData_latitude,
                 longitude = it.parcel.pickupData_longitude,
-                address = "${it.parcel.pickupData_address} ${it.parcel.pickupData_city}",
                 city = it.parcel.pickupData_city,
+                address = "${it.parcel.pickupData_address} ${it.parcel.pickupData_city}",
+                lockerOpenCode = it.parcel.pickupData_openCode,
+                lockerQrCode = it.parcel.pickupData_openQrCode,
+                storedTo = it.parcel.pickupData_storedTo,
+                storedOn = it.parcel.pickupData_storedOn,
+                location = it.parcel.pickupData_location,
+                availability = it.parcel.pickupData_availability,
             ),
             events = it.events.map {
                 ParcelEvent(

@@ -11,6 +11,7 @@ import ovh.motylek.outpostify.api.data.ParcelShipmentType
 import ovh.motylek.outpostify.api.data.ParcelStatus
 import ovh.motylek.outpostify.api.data.ParcelType
 import ovh.motylek.outpostify.api.types.InPostParcel
+import kotlin.String
 import kotlin.time.ExperimentalTime
 
 fun List<InPostParcel>.mapParcels(type: ParcelType): List<Parcel> = map {
@@ -28,10 +29,14 @@ fun List<InPostParcel>.mapParcels(type: ParcelType): List<Parcel> = map {
                 name = it.pickUpPoint.name,
                 lockerQrCode = it.qrCode,
                 lockerOpenCode = it.openCode,
+                storedTo = it.expiryDate?.let { parseTime(it) },
+                storedOn = it.storedDate?.let { parseTime(it) },
                 latitude = it.pickUpPoint.location.latitude,
                 longitude = it.pickUpPoint.location.longitude,
-                address = "${ it.pickUpPoint.addressDetails.street} ${ it.pickUpPoint.addressDetails.buildingNumber}",
-                city = it.pickUpPoint.addressDetails.city
+                address = "${it.pickUpPoint.addressDetails.street} ${it.pickUpPoint.addressDetails.buildingNumber}",
+                city = it.pickUpPoint.addressDetails.city,
+                location = it.pickUpPoint.locationDescription,
+                availability = it.pickUpPoint.openingHours,
             )
         } else { null },
         events = it.eventLog.map { p ->
