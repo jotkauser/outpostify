@@ -1,5 +1,6 @@
 package ovh.motylek.outpostify.ui.screens.parcels
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -23,8 +24,10 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AppBlocking
 import androidx.compose.material.icons.filled.LocalShipping
 import androidx.compose.material.icons.filled.Navigation
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -40,6 +43,7 @@ import androidx.compose.material3.ListItemShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -302,6 +306,7 @@ fun ParcelSheet(
         .calculateBottomPadding() + padding
     val skipPartiallyExpanded = false
     val context = LocalContext.current
+    var showNoMapAppDialog by remember { mutableStateOf(false) }
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
@@ -553,22 +558,35 @@ fun ParcelSheet(
                                 val uri = "geo:0,0?q=${parcel.parcel.pickupData_latitude},${parcel.parcel.pickupData_longitude}".toUri()
                                 val intent = Intent(Intent.ACTION_VIEW, uri)
 
-                                context.startActivity(intent)
+                                try {
+                                    context.startActivity(intent)
+                                } catch (e: ActivityNotFoundException) {
+                                    showNoMapAppDialog = true
+                                }
                             },
-                            modifier = Modifier
-                                .fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth()
                         ) {
                             Icon(
                                 Icons.Filled.Navigation,
                                 contentDescription = "",
-                                modifier = Modifier.size(
-                                    ButtonDefaults.iconSizeFor(
-                                        ButtonDefaults.MinHeight
-                                    )
-                                ),
+                                modifier = Modifier.size(ButtonDefaults.iconSizeFor(ButtonDefaults.MinHeight)),
                             )
                             Spacer(Modifier.size(ButtonDefaults.iconSpacingFor(ButtonDefaults.MinHeight)))
                             Text(stringResource(R.string.Parcels_ShowOnMap))
+                        }
+
+                        if (showNoMapAppDialog) {
+                            AlertDialog(
+                                onDismissRequest = { showNoMapAppDialog = false },
+                                title = { Text(stringResource(R.string.Parcels_NoMapApp_Title)) },
+                                text = { Text(stringResource(R.string.Parcels_NoMapApp_Message)) },
+                                icon = { Icon(Icons.Filled.AppBlocking, contentDescription = "") },
+                                confirmButton = {
+                                    TextButton(onClick = { showNoMapAppDialog = false }) {
+                                        Text(stringResource(R.string.Generic_Ok))
+                                    }
+                                }
+                            )
                         }
                     }
                 }
