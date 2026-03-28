@@ -2,15 +2,18 @@ package ovh.motylek.outpostify.ui.screens.parcels
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocalShipping
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -27,22 +30,27 @@ fun ReceivedParcelsScreen(
     viewModel: ReceivedParcelsViewModel = koinViewModel()
 ) {
     val parcels by viewModel.parcels.collectAsStateWithLifecycle()
-    if (parcels.isEmpty()) {
-        EmptyView(
-            Icons.Default.LocalShipping,
-            stringResource(R.string.Parcels_NoReceived)
-        )
-    } else {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize().padding(top = 16.dp, bottom = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            parcels
-                .sortedByDescending { it.events.last().date }
-                .forEach {
-                item {
+
+    val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
+
+    PullToRefreshBox(
+        isRefreshing = isRefreshing,
+        onRefresh = { viewModel.refresh() },
+    ) {
+        if (parcels.isEmpty()) {
+            EmptyView(
+                Icons.Default.LocalShipping,
+                stringResource(R.string.Parcels_NoReceived)
+            )
+        } else {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                contentPadding = PaddingValues(16.dp)
+            ) {
+                items(parcels) {
                     Card(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+                        modifier = Modifier.fillMaxWidth()
                     ) {
                         Column(
                             modifier = Modifier.padding(16.dp),

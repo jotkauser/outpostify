@@ -29,17 +29,13 @@ class ClientManager(
                 )
             }
             if (client.isRenewCredentialsNeeded()) {
-                try {
-                    val newToken = client.renewCredentials()
-                    accountRepository.updateAccount(
-                        account.copy(
-                            accessToken = newToken,
-                            tokenExpiration = getJwtExpiration(newToken)
-                        )
+                val newToken = client.renewCredentials()
+                accountRepository.updateAccount(
+                    account.copy(
+                        accessToken = newToken,
+                        tokenExpiration = getJwtExpiration(newToken)
                     )
-                } catch (e: Exception) {
-                    throw e
-                }
+                )
             }
             client
         }
