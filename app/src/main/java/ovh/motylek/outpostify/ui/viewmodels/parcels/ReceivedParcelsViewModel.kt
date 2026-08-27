@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import ovh.motylek.outpostify.api.data.ParcelType
+import ovh.motylek.outpostify.data.database.entities.ParcelWithEvents
 import ovh.motylek.outpostify.data.repository.AccountRepository
 import ovh.motylek.outpostify.data.repository.ParcelRepository
 
@@ -26,6 +27,7 @@ class ReceivedParcelsViewModel(
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     val isRefreshing = MutableStateFlow(false)
+    val selectedParcel = MutableStateFlow<ParcelWithEvents?>(null)
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val parcels = currentAccount
@@ -36,6 +38,9 @@ class ReceivedParcelsViewModel(
         .map { p -> p.sortedByDescending { it.events.last().date } }
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
+    fun selectParcel(parcel: ParcelWithEvents?) {
+        selectedParcel.value = parcel
+    }
     fun refresh() = viewModelScope.launch(Dispatchers.IO) {
         try {
             val user = accountRepository.getCurrentAccount().first()!!

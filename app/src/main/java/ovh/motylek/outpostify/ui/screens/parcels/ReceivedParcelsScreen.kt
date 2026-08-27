@@ -83,6 +83,7 @@ import ovh.motylek.outpostify.ui.viewmodels.parcels.ReceivedParcelsViewModel
 import java.time.format.DateTimeFormatter
 import kotlin.time.Clock
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
@@ -106,7 +107,7 @@ fun ReceivedParcelsScreen(
 ) {
     val parcels by viewModel.parcels.collectAsStateWithLifecycle()
     val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
-    var selectedParcel by remember { mutableStateOf<ParcelWithEvents?>(null) }
+    val selectedParcel by viewModel.selectedParcel.collectAsStateWithLifecycle()
 
     PullToRefreshBox(
         isRefreshing = isRefreshing,
@@ -127,7 +128,7 @@ fun ReceivedParcelsScreen(
                 ParcelList(
                     parcels,
                     onParcelClick = { parcel ->
-                        selectedParcel = parcel
+                        viewModel.selectParcel(parcel)
                     }
                 )
             }
@@ -137,7 +138,7 @@ fun ReceivedParcelsScreen(
     selectedParcel?.let { parcel ->
         ParcelSheet(
             parcel = parcel,
-            onDismiss = { selectedParcel = null }
+            onDismiss = { viewModel.selectParcel(null) }
         )
     }
 }
@@ -162,8 +163,8 @@ fun ParcelList(
             verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
 
-            itemsIndexed(parcels) { index, parcelwithevents ->
-                val parcel = parcelwithevents.parcel
+            itemsIndexed(parcels) { index, parcelWithEvents ->
+                val parcel = parcelWithEvents.parcel
 
                 val isFirst = index == 0
                 val isLast = index == parcels.lastIndex
@@ -187,7 +188,7 @@ fun ParcelList(
 
                 ListItem(
                     onClick = {
-                        onParcelClick(parcelwithevents)
+                        onParcelClick(parcelWithEvents)
                     },
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -220,7 +221,7 @@ fun ParcelList(
                 ) {
                     Column {
                         Text(
-                            text = apiTranslationMap[parcelwithevents.events[0].type.name]
+                            text = apiTranslationMap[parcelWithEvents.events[0].type.name]
                                 ?.let { stringResource(it) }
                                 ?: "???",
                             modifier = Modifier.padding(bottom = 8.dp),
@@ -566,7 +567,7 @@ fun ParcelSheet(
 
                                 try {
                                     context.startActivity(intent)
-                                } catch (e: ActivityNotFoundException) {
+                                } catch (_: ActivityNotFoundException) {
                                     showNoMapAppDialog = true
                                 }
                             },
@@ -630,7 +631,7 @@ fun CountdownText(
         while (true) {
             remainingTime = calculateRemaining()
             if (remainingTime == Duration.ZERO) break
-            delay(1000)
+            delay(1000.milliseconds)
         }
     }
 
@@ -674,7 +675,7 @@ fun CountdownProgressBar(
     }
 
     var now by remember { mutableStateOf(Clock.System.now()) }
-    LaunchedEffect(tickMs) { while (true) { delay(tickMs); now = Clock.System.now() } }
+    LaunchedEffect(tickMs) { while (true) { delay(tickMs.milliseconds); now = Clock.System.now() } }
 
     val remaining = (target.toInstant(tz) - now).inWholeSeconds.coerceAtLeast(0)
     val progress by animateFloatAsState(remaining / totalSecs.toFloat(), tween(900))
