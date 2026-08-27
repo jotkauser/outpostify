@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.ksp)
     alias(libs.plugins.kotlin.serialization)
@@ -10,12 +9,12 @@ plugins {
 
 android {
     namespace = "ovh.motylek.outpostify"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "ovh.motylek.outpostify"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 

@@ -1,6 +1,6 @@
 [versions]
-agp = "8.13.2"
-kotlin = "2.3.20"
+agp = "9.3.2"
+kotlin = "2.4.10"
 coreKtx = "1.18.0"
 lifecycleRuntimeKtx = "2.10.0"
 activityCompose = "1.13.0"
@@ -12,10 +12,10 @@ kotlin-ksp = "2.3.9"
 koin = "4.2.2"
 koin-annotations = "4.2.2"
 koin-plugin = "1.1.0"
-kotlin-serialization = "1.10.0"
+kotlin-serialization = "1.11.0"
 material3 = "1.5.0-alpha15"
 accompanist-drawablepainter = "0.37.3"
-kotlin-coroutines = "1.10.2"
+kotlin-coroutines = "1.11.0"
 ktor = "3.4.1"
 androidx-room3 = "3.0.2"
 qrose = "1.1.2"
@@ -63,7 +63,6 @@ androidx-compose-animation-core = { group = "androidx.compose.animation", name =
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
