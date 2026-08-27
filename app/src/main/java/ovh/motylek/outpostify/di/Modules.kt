@@ -5,7 +5,7 @@ import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
-import org.koin.ksp.generated.module
+import org.koin.plugin.module.dsl.single
 import ovh.motylek.outpostify.data.database.OutPostifyDatabase
 import ovh.motylek.outpostify.data.database.createDatabase
 import ovh.motylek.outpostify.data.repository.AccountRepository
@@ -28,16 +28,15 @@ val daoModule = module {
 }
 
 val repositoryModule = module {
-    singleOf(::AccountRepository)
-    singleOf(::ParcelRepository)
+    single<ParcelRepository>()
+    single<AccountRepository>()
 }
 
 val appCoreModule = module {
-    singleOf(::ClientManager)
+    single<ClientManager>()
 }
 
 val appModules = arrayOf(
-    ViewModelsModule().module,
     databaseModule,
     daoModule,
     repositoryModule,

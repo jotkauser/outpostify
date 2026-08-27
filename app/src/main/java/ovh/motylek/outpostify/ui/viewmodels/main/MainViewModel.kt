@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
-import org.koin.android.annotation.KoinViewModel
+import org.koin.core.annotation.KoinViewModel
 import ovh.motylek.outpostify.data.database.entities.AccountEntity
 import ovh.motylek.outpostify.data.repository.AccountRepository
 import ovh.motylek.outpostify.ui.routes.Route

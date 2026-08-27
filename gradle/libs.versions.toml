@@ -8,9 +8,10 @@ composeBom = "2026.03.00"
 appcompat = "1.7.1"
 material = "1.13.0"
 compose-navigation3 = "1.0.1"
-kotlin-ksp = "2.3.6"
-koin = "4.2.0"
-koin-annotations = "2.3.1"
+kotlin-ksp = "2.3.9"
+koin = "4.2.2"
+koin-annotations = "4.2.2"
+koin-plugin = "1.1.0"
 kotlin-serialization = "1.10.0"
 material3 = "1.5.0-alpha15"
 accompanist-drawablepainter = "0.37.3"
@@ -43,7 +44,6 @@ koin = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
 koin-annotations = { group = "io.insert-koin", name = "koin-annotations", version.ref = "koin-annotations" }
-koin-ksp-compiler = { group = "io.insert-koin", name = "koin-ksp-compiler", version.ref = "koin-annotations" }
 kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin-serialization" }
 accompanist-drawablepainter = { group = "com.google.accompanist", name = "accompanist-drawablepainter", version.ref = "accompanist-drawablepainter" }
 kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
@@ -69,4 +69,4 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 androidx-room = { id = "androidx.room", version.ref = "androidx-room" }
-
+koin-compiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plugin" }

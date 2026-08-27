@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.koin.android.annotation.KoinViewModel
+import org.koin.core.annotation.KoinViewModel
 import ovh.motylek.outpostify.api.data.ParcelType
 import ovh.motylek.outpostify.data.database.entities.ParcelWithEvents
 import ovh.motylek.outpostify.data.repository.AccountRepository

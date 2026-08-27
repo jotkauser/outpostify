@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.annotation.KoinViewModel
+import org.koin.core.annotation.KoinViewModel
 import ovh.motylek.outpostify.api.InPostLoginClient
 import ovh.motylek.outpostify.api.utils.getJwtExpiration
 import ovh.motylek.outpostify.data.database.entities.AccountEntity
