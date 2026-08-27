@@ -1,5 +1,6 @@
 package ovh.motylek.outpostify.ui.screens.main
 
+import android.graphics.drawable.Drawable
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -9,10 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LocalShipping
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.outlined.LocalShipping
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,7 +28,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSerializable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -52,7 +51,6 @@ import ovh.motylek.outpostify.ui.common.components.ScreenScope
 import ovh.motylek.outpostify.ui.routes.Route
 import ovh.motylek.outpostify.ui.routes.routesSerializer
 import ovh.motylek.outpostify.ui.viewmodels.main.MainViewModel
-import kotlin.reflect.KClass
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -86,7 +84,7 @@ fun MainView(
                         NavigationBarItem(
                             selected = selected,
                             label = { Text(stringResource(item.label)) },
-                            icon = { Icon(imageVector = if (selected) item.iconSelected else item.icon, contentDescription = null) },
+                            icon = { Icon(painter = if (selected) painterResource(item.iconSelected) else painterResource(item.icon), contentDescription = null) },
                             onClick = { backStack.add(item.route) }
                         )
                     }
@@ -107,7 +105,7 @@ fun MainView(
 
                     val avatar = @Composable {
                         Avatar(Modifier.padding(horizontal = 8.dp).clickable { viewModel.showUserSwitcher() }) {
-                            Icon(Icons.Default.Person, null)
+                            Icon(painterResource(R.drawable.ic_person), null)
                         }
                     }
 
@@ -141,7 +139,7 @@ fun MainView(
                                     }
                                 ) {
                                     Avatar(Modifier.padding(horizontal = 8.dp)) {
-                                        Icon(Icons.Default.Person, null)
+                                        Icon(painterResource(R.drawable.ic_person), null)
                                     }
                                     Text(account.phoneNumber, fontWeight = if (account.id == currentAccount?.id) FontWeight.Bold else FontWeight.Normal)
                                 }
@@ -172,16 +170,16 @@ fun MainView(
 
 private data class NavigationItem(
     val label: Int,
-    val iconSelected: ImageVector,
-    val icon: ImageVector,
+    val iconSelected: Int,
+    val icon: Int,
     val route: Route
 )
 
 private val navigationItems = listOf(
     NavigationItem(
         label = R.string.Navigation_Parcels,
-        iconSelected = Icons.Default.LocalShipping,
-        icon = Icons.Outlined.LocalShipping,
+        iconSelected = R.drawable.ic_local_shipping,
+        icon = R.drawable.ic_outlined_local_shipping,
         route = Route.Parcels
     ),
 )

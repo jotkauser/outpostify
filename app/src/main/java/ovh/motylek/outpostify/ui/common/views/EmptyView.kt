@@ -11,13 +11,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
 fun EmptyView(
-    icon: ImageVector,
+    icon: Painter,
     text: String
 ) {
     Column(
@@ -25,7 +26,7 @@ fun EmptyView(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Icon(imageVector = icon, contentDescription = null, modifier = Modifier.size(128.dp))
+        Icon(painter = icon, contentDescription = null, modifier = Modifier.size(128.dp))
         Spacer(modifier = Modifier.height(16.dp))
         Text(text = text, fontSize = 20.sp)
     }

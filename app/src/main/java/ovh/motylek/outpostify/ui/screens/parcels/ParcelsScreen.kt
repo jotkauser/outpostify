@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LocalShipping
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
@@ -14,6 +12,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.launch
 import ovh.motylek.outpostify.R
@@ -73,14 +72,14 @@ fun ParcelsScreen(
 
                     1 -> {
                         EmptyView(
-                            Icons.Default.LocalShipping,
+                            painterResource(R.drawable.ic_local_shipping),
                             stringResource(R.string.Parcels_NoSent)
                         )
                     }
 
                     2 -> {
                         EmptyView(
-                            Icons.Default.LocalShipping,
+                            painterResource(R.drawable.ic_local_shipping),
                             stringResource(R.string.Parcels_NoReturned)
                         )
                     }

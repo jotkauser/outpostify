@@ -72,7 +72,6 @@ dependencies {
     implementation(libs.kotlin.serialization)
     implementation(libs.kotlin.coroutines)
     implementation(libs.kotlin.datetime)
-    implementation(libs.material.icons.extended)
 
     implementation(projects.api)
 

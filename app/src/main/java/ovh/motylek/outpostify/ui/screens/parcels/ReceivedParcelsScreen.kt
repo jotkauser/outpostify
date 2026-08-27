@@ -23,10 +23,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AppBlocking
-import androidx.compose.material.icons.filled.LocalShipping
-import androidx.compose.material.icons.filled.Navigation
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -42,10 +38,11 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.ListItemShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -57,6 +54,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -115,7 +113,7 @@ fun ReceivedParcelsScreen(
     ) {
         if (parcels.isEmpty()) {
             EmptyView(
-                Icons.Default.LocalShipping,
+                painterResource(R.drawable.ic_local_shipping),
                 stringResource(R.string.Parcels_NoReceived)
             )
         } else {
@@ -311,13 +309,12 @@ fun ParcelSheet(
     val padding = 16.dp
     val bottomPadding = WindowInsets.navigationBars.asPaddingValues()
         .calculateBottomPadding() + padding
-    val skipPartiallyExpanded = false
     val context = LocalContext.current
     var showNoMapAppDialog by remember { mutableStateOf(false) }
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
-        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded)
+        sheetState = rememberBottomSheetState(SheetValue.Hidden)
     ) {
         Column(
             modifier = Modifier
@@ -574,8 +571,8 @@ fun ParcelSheet(
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Icon(
-                                Icons.Filled.Navigation,
-                                contentDescription = "",
+                                painterResource(R.drawable.ic_navigation),
+                                contentDescription = null,
                                 modifier = Modifier.size(ButtonDefaults.iconSizeFor(ButtonDefaults.MinHeight)),
                             )
                             Spacer(Modifier.size(ButtonDefaults.iconSpacingFor(ButtonDefaults.MinHeight)))
@@ -587,7 +584,7 @@ fun ParcelSheet(
                                 onDismissRequest = { showNoMapAppDialog = false },
                                 title = { Text(stringResource(R.string.Parcels_NoMapApp_Title)) },
                                 text = { Text(stringResource(R.string.Parcels_NoMapApp_Message)) },
-                                icon = { Icon(Icons.Filled.AppBlocking, contentDescription = "") },
+                                icon = { Icon(painterResource(R.drawable.ic_app_blocking), null) },
                                 confirmButton = {
                                     TextButton(onClick = { showNoMapAppDialog = false }) {
                                         Text(stringResource(R.string.Generic_Ok))
