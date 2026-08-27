@@ -1,7 +1,7 @@
 package ovh.motylek.outpostify.data.database
 
 import android.content.Context
-import androidx.room.Room
+import androidx.room3.Room
 
 fun createDatabase(context: Context): OutPostifyDatabase {
     val appContext = context.applicationContext

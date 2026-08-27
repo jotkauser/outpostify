@@ -1,7 +1,7 @@
 package ovh.motylek.outpostify.data.database.entities
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room3.Entity
+import androidx.room3.PrimaryKey
 import ovh.motylek.outpostify.api.data.ParcelShipmentType
 import ovh.motylek.outpostify.api.data.ParcelType
 import kotlinx.datetime.LocalDateTime

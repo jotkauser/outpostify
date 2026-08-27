@@ -1,9 +1,9 @@
 package ovh.motylek.outpostify.data.database
 
-import androidx.room.AutoMigration
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
+import androidx.room3.AutoMigration
+import androidx.room3.Database
+import androidx.room3.RoomDatabase
+import androidx.room3.ColumnTypeConverters
 import ovh.motylek.outpostify.data.database.dao.AccountDao
 import ovh.motylek.outpostify.data.database.dao.ParcelDao
 import ovh.motylek.outpostify.data.database.entities.AccountEntity
@@ -35,8 +35,8 @@ import ovh.motylek.outpostify.data.database.entities.ParcelEventEntity
         ),
     ]
 )
-@TypeConverters(Converters::class)
-abstract class OutPostifyDatabase(): RoomDatabase() {
+@ColumnTypeConverters(Converters::class)
+abstract class OutPostifyDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao
     abstract fun parcelDao(): ParcelDao
 }

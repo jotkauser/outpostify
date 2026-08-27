@@ -60,10 +60,10 @@ fun List<ParcelWithEvents>.mapToParcels(userId: Long): List<Parcel> {
                 location = it.parcel.pickupData_location,
                 availability = it.parcel.pickupData_availability,
             ),
-            events = it.events.map {
+            events = it.events.map { event ->
                 ParcelEvent(
-                    date = it.date,
-                    status = it.type
+                    date = event.date,
+                    status = event.type
                 )
             }
         )

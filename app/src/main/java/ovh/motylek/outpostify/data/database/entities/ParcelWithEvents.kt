@@ -1,13 +1,13 @@
 package ovh.motylek.outpostify.data.database.entities
 
-import androidx.room.Embedded
-import androidx.room.Relation
+import androidx.room3.Embedded
+import androidx.room3.Relation
 
 data class ParcelWithEvents(
     @Embedded val parcel: ParcelEntity,
     @Relation(
-        parentColumn = "shipmentNumber",
-        entityColumn = "shipmentNumber"
+        parentColumns = ["shipmentNumber"],
+        entityColumns = ["shipmentNumber"]
     )
     val events: List<ParcelEventEntity>
 )
