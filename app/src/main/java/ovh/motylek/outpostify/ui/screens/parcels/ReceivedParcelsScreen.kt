@@ -77,6 +77,8 @@ import ovh.motylek.outpostify.api.data.ParcelStatus
 import ovh.motylek.outpostify.data.database.entities.ParcelWithEvents
 import ovh.motylek.outpostify.ui.common.theme.ExpressiveListItemShapes
 import ovh.motylek.outpostify.ui.common.views.EmptyView
+import ovh.motylek.outpostify.ui.common.views.EmptyViewProgress
+import ovh.motylek.outpostify.ui.viewmodels.parcels.ReceivedParcelsUiState
 import ovh.motylek.outpostify.ui.viewmodels.parcels.ReceivedParcelsViewModel
 import java.time.format.DateTimeFormatter
 import kotlin.time.Clock
@@ -103,32 +105,42 @@ val apiTranslationMap: Map<String, Int> =
 fun ReceivedParcelsScreen(
     viewModel: ReceivedParcelsViewModel = koinViewModel()
 ) {
-    val parcels by viewModel.parcels.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle()
     val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
     val selectedParcel by viewModel.selectedParcel.collectAsStateWithLifecycle()
 
     PullToRefreshBox(
         isRefreshing = isRefreshing,
+        enabled = state != ReceivedParcelsUiState.Loading,
         onRefresh = { viewModel.refresh() },
     ) {
-        if (parcels.isEmpty()) {
-            EmptyView(
-                painterResource(R.drawable.ic_local_shipping),
-                stringResource(R.string.Parcels_NoReceived)
-            )
-        } else {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                ParcelList(
-                    parcels,
-                    onParcelClick = { parcel ->
-                        viewModel.selectParcel(parcel)
-                    }
+        when (val uiState = state) {
+            is ReceivedParcelsUiState.Empty -> {
+                EmptyView(
+                    painterResource(R.drawable.ic_local_shipping),
+                    stringResource(R.string.Parcels_NoReceived)
                 )
+            }
+            is ReceivedParcelsUiState.Loading -> {
+                EmptyViewProgress()
+            }
+            is ReceivedParcelsUiState.Success -> {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    ParcelList(
+                        uiState.parcels,
+                        onParcelClick = { parcel ->
+                            viewModel.selectParcel(parcel)
+                        }
+                    )
+                }
+            }
+            is ReceivedParcelsUiState.Error -> {
+                // TODO
             }
         }
     }

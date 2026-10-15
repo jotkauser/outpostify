@@ -15,7 +15,6 @@ class AccountRepository(
 
     fun getCurrentAccount(): Flow<AccountEntity?> = accountDao.getSelected()
 
-
     suspend fun updateAccount(accountEntity: AccountEntity) = accountDao.update(accountEntity)
 
     suspend fun getAccount(id: Long): Flow<AccountEntity> = accountDao.getById(id)
