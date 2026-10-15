@@ -22,7 +22,7 @@ class ParcelRepository(
         val client = clientManager.getApiClient(userId)
         val parcels = when (type) {
             ParcelType.RECEIVED -> client.getTrackedParcels()
-            ParcelType.SENT -> TODO()
+            ParcelType.SENT -> client.getSentParcels()
             ParcelType.RETURNED -> TODO()
         }
         return parcels

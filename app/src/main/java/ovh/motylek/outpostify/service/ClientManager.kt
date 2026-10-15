@@ -32,8 +32,9 @@ class ClientManager(
                 val newToken = client.renewCredentials()
                 accountRepository.updateAccount(
                     account.copy(
-                        accessToken = newToken,
-                        tokenExpiration = getJwtExpiration(newToken)
+                        accessToken = newToken.accessToken,
+                        refreshToken = newToken.refreshToken,
+                        tokenExpiration = getJwtExpiration(newToken.accessToken)
                     )
                 )
             }

@@ -31,3 +31,16 @@ fun EmptyView(
         Text(text = text, fontSize = 20.sp)
     }
 }
+
+@Composable
+fun EmptyView(
+    content: @Composable () -> Unit
+) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        content.invoke()
+    }
+}

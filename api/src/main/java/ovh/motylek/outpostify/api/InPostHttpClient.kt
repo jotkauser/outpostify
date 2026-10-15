@@ -4,6 +4,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.UserAgent
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.request.forms.submitForm
 import io.ktor.client.request.get
 import io.ktor.client.request.headers
 import io.ktor.client.request.post
@@ -12,6 +13,7 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
 import io.ktor.http.URLBuilder
 import io.ktor.http.contentType
+import io.ktor.http.parameters
 import kotlinx.serialization.json.Json
 import ovh.motylek.outpostify.api.endpoints.InPostApiEndpoints
 
@@ -30,7 +32,7 @@ internal class InPostHttpClient(
             }
         }
         install(UserAgent) {
-            agent = "InPost-Mobile/4.8.1(40801000) (Android $androidVersion; $deviceModel; $deviceManufacturer $deviceCodename; en)"
+            agent = "InPost-Mobile/4.21.1(42101000) (Android $androidVersion; $deviceModel; $deviceManufacturer $deviceCodename; en)"
         }
     }
 
@@ -68,6 +70,39 @@ internal class InPostHttpClient(
         }
 
         return response
+    }
+
+    suspend fun postForm(
+        url: String,
+        formParameters: Map<String, String>,
+        query: Map<String, String>? = null,
+        headers: Map<String, String>? = null
+    ): HttpResponse {
+        val fullUrl = if (url.startsWith("http://") || url.startsWith("https://")) {
+            url
+        } else {
+            "${InPostApiEndpoints.BASE_URL}$url"
+        }
+
+        val urlBuilder = URLBuilder(fullUrl)
+        query?.forEach {
+            urlBuilder.parameters.append(it.key, it.value)
+        }
+
+        return httpClient.submitForm(
+            url = urlBuilder.buildString(),
+            formParameters = parameters {
+                formParameters.forEach { (key, value) ->
+                    append(key, value)
+                }
+            }
+        ) {
+            headers {
+                headers?.forEach {
+                    append(it.key, it.value)
+                }
+            }
+        }
     }
 
 }
